@@ -17,19 +17,19 @@ console.log('HW_3 - Application start!');
 console.time('Process time');
 
 const maxSubArray = (nums:any) => {
-    let max_so_far = 0, max_ending_here = 0;
+    let maxSoFar = 0, maxEndingHere = 0;
     let startIndex = -1;
     let endIndex = -1;
     for(let i = 0; i < nums.length; i++) {
-        if (nums[i] > max_ending_here + nums[i]) {
+        if (nums[i] > maxEndingHere + nums[i]) {
             startIndex = i;
-            max_ending_here = nums[i];
+            maxEndingHere = nums[i];
         } else {
-            max_ending_here = max_ending_here + nums[i];
+            maxEndingHere = maxEndingHere + nums[i];
         }
 
-        if (max_so_far < max_ending_here) {
-            max_so_far = max_ending_here;
+        if (maxSoFar < maxEndingHere) {
+            maxSoFar = maxEndingHere;
             endIndex = i;
         }
     }
