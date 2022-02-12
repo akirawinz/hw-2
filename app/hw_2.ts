@@ -14,13 +14,27 @@ console.log('HW_2 - Application start!');
 
 console.time('Process time');
 
+const convertArrayToObject = (array:any, key:any) => {
+    return array.reduce((obj:any, item:any) => {
+        obj[item[key].split(" ")[0]] = item
+        return obj
+    }, {})
+};
+
+const raw = convertArrayToObject(realTransactions,'name')
+const aa = _.map(realQuery, (name:string) => {
+    return raw[name]
+})
+const f =  aa.reduce( (acc:any, obj:any)=> acc + obj.profit, 0);
+console.log(f)
+
 // Your code here
 // method 1
-const filter = _.filter(realTransactions, (s:any) => {
-    return _.some(realQuery, (v:any) =>s.name.indexOf(v) >= 0 );
-});
-const b = filter.reduce( (acc:any, obj:any)=> acc + obj.profit, 0);
-console.log(b)
+// const filter = _.filter(realTransactions, (s:any) => {
+//     return _.some(realQuery, (v:any) =>s.name.indexOf(v) >= 0 );
+// });
+// const b = filter.reduce( (acc:any, obj:any)=> acc + obj.profit, 0);
+// console.log(b)
 // method 2
 // let sum = 0;
 // for (const {name, profit} of realTransactions) {
