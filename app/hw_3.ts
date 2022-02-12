@@ -16,7 +16,7 @@ const testCase4 = jsonTestCase3_4 as Transaction[];
 console.log('HW_3 - Application start!');
 console.time('Process time');
 
-const maxSubArray = function(nums:any) {
+const maxSubArray = (nums:any) => {
     let max_so_far = 0, max_ending_here = 0;
     let startIndex = -1;
     let endIndex = -1;
@@ -49,7 +49,7 @@ const e = realTransactions.map((x:any) => x.profit);
 // console.log(maxSubArray(b))
 // console.log(maxSubArray(c))
 // console.log(maxSubArray(d))
-// console.log(maxSubArray(e))
+console.log(maxSubArray(e))
 // Your code here
 
 console.timeEnd('Process time');
