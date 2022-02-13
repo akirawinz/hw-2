@@ -5,7 +5,7 @@ import jsonRealQuery from './data/real_query.json';
 import {createDiffieHellman} from "crypto";
 const _ = require('lodash');
 const sampleTransactions: Transaction[] = jsonSampleTransactions as Transaction[];
-const sampleQuery = ['Alfred', 'Susan', 'Emilie', 'Susan'];
+const sampleQuery = ['Alfred', 'Susan'];
 
 const realTransactions: Transaction[] = jsonRealTransactions as Transaction[];
 const realQuery: string[] = jsonRealQuery as string[];
@@ -14,52 +14,18 @@ console.log('HW_2 - Application start!');
 
 console.time('Process time');
 
-const convertArrayToObject = (array:any, key:any) => {
-    return array.reduce((obj:any, item:any) => {
-        obj[item[key].split(" ")[0]] = item
-        return obj
-    }, {})
-};
+const a =_.reduce(realQuery, function(obj:any, item:any) {
+    obj[item] = item
+    return obj
+}, {});
 
-const raw = convertArrayToObject(realTransactions,'name')
-const aa = _.map(realQuery, (name:string) => {
-    return raw[name]
-})
-const f =  aa.reduce( (acc:any, obj:any)=> acc + obj.profit, 0);
-console.log(f)
+const data = _.sumBy(realTransactions, function(o:any) {
+    const  name = o.name.split(' ')[0]
+    if(a[name]) {
+        return o.profit
+    }
+});
 
-// Your code here
-// method 1
-// const filter = _.filter(realTransactions, (s:any) => {
-//     return _.some(realQuery, (v:any) =>s.name.indexOf(v) >= 0 );
-// });
-// const b = filter.reduce( (acc:any, obj:any)=> acc + obj.profit, 0);
-// console.log(b)
-// method 2
-// let sum = 0;
-// for (const {name, profit} of realTransactions) {
-//     for (const keyword of realQuery) {
-//         if (name.indexOf(keyword) >= 0) {
-//             sum += profit;
-//             break;
-//         }
-//     }
-// }
-// console.log(sum)
+console.log(data)
 
-// method
-// let sum = 0;
-// let productsLength = realTransactions.length;
-// let keywordsLength = realQuery.length;
-// let pIndex, kIndex;
-// for (pIndex = 0; pIndex < productsLength; ++pIndex) {
-//     const {name, profit} = realTransactions[pIndex];
-//     for (kIndex = 0; kIndex < keywordsLength; ++kIndex) {
-//         if (name.indexOf(realQuery[kIndex]) >= 0) {
-//             sum += profit;
-//             break;
-//         }
-//     }
-// }
-// console.log(sum ,'53.700s - 54')
 console.timeEnd('Process time');
